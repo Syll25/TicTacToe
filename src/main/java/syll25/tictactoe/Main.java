@@ -11,7 +11,7 @@ public class Main {
 
         TicTacToe symbolChoice = new TicTacToe('X', 'Y', 'Z', 'O', 'S');
 
-        List<Character> drawSymbols = symbolChoice.drawSymbols();
+        List<Character> drawSymbols = symbolChoice.drawSymbols(); // to też zadziała, ale chcemy losować po jednym znaku - wymagania w CharacterPoolRandomizer
 
         char player1symbol = drawSymbols.get(0);
         System.out.println("Player 1 that is your symbol: " + player1symbol);
