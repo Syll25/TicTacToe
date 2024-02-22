@@ -13,16 +13,12 @@ import java.util.Random;
  * - testy jednostkowe
  */
 public class CharacterPoolRandomizer {
-    public ArrayList<Character> availableSymbols; // nie public
+    public ArrayList<Character> availableSymbols;
+
     public CharacterPoolRandomizer(char... characters) {
         availableSymbols = new ArrayList<>();
         for (char c : characters) {
             availableSymbols.add(c);
-        }
-
-        if (availableSymbols.size() != 5) { // po co limitujemy rozmiar puli w konstruktorze?
-            // własny wyjątek
-            throw new IllegalArgumentException("You need to choose one of this characters: X, Y, Z, O, S"); //nazwe wyjatku podpowiada mi program, gdy wymysle wlasna stwierdza "cannot resolve symbol"
         }
         Collections.shuffle(availableSymbols);
     }
@@ -32,11 +28,10 @@ public class CharacterPoolRandomizer {
     }
 
     public char drawSymbol() {
-        if (availableSymbols.isEmpty()) {
-            throw new IllegalArgumentException("No available symbols"); // własny wyjątek
-        }
-        int randomIndex = new Random().nextInt(availableSymbols.size()); // mamy shuffle w konstruktorze
-        return availableSymbols.remove(randomIndex);
+        //if (availableSymbols.isEmpty()) {
+            throw new NoMoreSymbolsException();
+        //}
+        //return availableSymbols.remove(0);
     }
 
 }
