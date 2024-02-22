@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class Board {
 
-    private final char[][] board;
+    private final char[][] board; // char, czy Player?
     private CharacterPoolRandomizer symbolChoice;
 
     public Board(CharacterPoolRandomizer symbolChoice) {
@@ -14,7 +14,7 @@ public class Board {
     public void initializeBoard() {
         for (int i=0; i< board.length; i++) {
             for (int j=0; j<board[i].length; j++) {
-                board[i][j] = symbolChoice.drawSymbol();
+                board[i][j] = symbolChoice.drawSymbol(); // po co to? na początku będą nulle - pola planszy nie są wypełnione znakami gracza bo gra jeszcze się nie rozpoczęła
             }
         }
     }

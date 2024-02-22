@@ -17,10 +17,12 @@ public class CharacterPoolRandomizerTest {
         Set<Character> availableSymbols = new HashSet<>(Arrays.asList('X', 'Y', 'Z', 'O', 'S'));
 
         //when
-        char drawSymbol = symbolChoice.drawSymbol();
+        char drawSymbol = symbolChoice.drawSymbol(); // mamy losowanie, więc by zwiększyć pewność, zróbmy to wielokrotnie
 
         //then
         assertTrue(drawSymbol == 'X' || drawSymbol == 'Y' || drawSymbol == 'Z' || drawSymbol == 'O' || drawSymbol == 'S');
         assertTrue(availableSymbols.contains(drawSymbol), "Symbol is not available");
     }
+
+    // TODO test na wysycenie puli
 }

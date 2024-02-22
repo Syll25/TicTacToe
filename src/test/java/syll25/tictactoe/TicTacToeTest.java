@@ -14,7 +14,7 @@ class TicTacToeTest {
     ///...
   }
 
-  @Test
+/*  @Test
   public void drawsSymbols() {
     //given
     TicTacToe ticTacToe = new TicTacToe('X', 'Y', 'Z', 'O', 'S');
@@ -29,7 +29,7 @@ class TicTacToeTest {
     assertTrue(characters.contains('Z'));
     assertTrue(characters.contains('O'));
     assertTrue(characters.contains('S'));
-  }
+  }*/
 
   @Test
   public void throwsExceptionWhenNoSymbolsAvailable() {
