@@ -1,6 +1,9 @@
 package syll25.tictactoe;
 
 import java.util.Arrays;
+import java.util.Optional;
+
+import static java.util.Arrays.fill; // ciekawostka: import metody statycznej
 
 public class Board {
 
@@ -15,7 +18,7 @@ public class Board {
         for (char[] row : cells) {
             // niepotrzebne - niech to ma postać 0 lub null (w przypadku Player)
             // wykorzystujemy to do narysowania planszy ale wiedzieć to jest odpowiedzialnością klasy BoardRenderer
-            java.util.Arrays.fill(row, '-');  //nowe cudowne odkrycie z codecademy.com ale nie wiem czy dobrze użyte
+            fill(row, '-');  //nowe cudowne odkrycie z codecademy.com ale nie wiem czy dobrze użyte
         }
     }
 
@@ -67,6 +70,8 @@ public class Board {
 
     /*
      działa dobrze dla przypadku po przekątnych?
+     zahardkodowane "3"
+     ma działać także dla tablicy 5x5, 10x10 itd
      pokryć testem
      nazewnictwo - metoda nie sprawdza kto wygrał, a czy wygrał wskazany - zmieńmy na Optional<Player> getWinner()
      znać Optional
@@ -75,9 +80,15 @@ public class Board {
         for (int i = 0; i < 3; i++) {
             if ((cells[i][0] == symbol && cells[i][1] == symbol && cells[i][2] == symbol) ||
                     (cells[0][i] == symbol && cells[1][i] == symbol && cells[2][i] == symbol)) {
+                //return Optional.of(player); // gdy jest zwycieżca
                 return true;
             }
         }
+
+        //return Optional.empty(); // gdy brak zwycięzcy
         return false;
+        //w Main np.
+//        Optional<Player> winner = getWinner();
+//        if (winner.isPresent())
     }
 }

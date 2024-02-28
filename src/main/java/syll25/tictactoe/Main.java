@@ -12,9 +12,15 @@ public class Main {
         System.out.println("That is your game board: ");
         board.printBoard();
 
+
+        BoardRenderer renderer = new BoardRenderer(board);
+
         if (symbolChoice.availableSymbols.size() >= 2) {
             char player1symbol = symbolChoice.drawSymbol(); // do klasy Player // wciąż brak obiektowości
             char player2symbol = symbolChoice.drawSymbol(); // do klasy Player // wciąż brak obiektowości
+            //np.
+            //Player player1 = new Player(symbolChoice.drawSymbol());
+            //player1.symbol, później player2.symbol
 
             System.out.println("Player 1 that is your symbol: " + player1symbol);
             System.out.println("Player 2 that is your symbol: " + player2symbol);
@@ -37,7 +43,8 @@ public class Main {
                     }
                 } while (!validMove);
 
-                board.printBoard();
+                renderer.render();
+                //board.printBoard();
 
                 if (board.checkWhoWin(player1symbol)) {
                     System.out.println("Player 1 win!");
