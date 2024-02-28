@@ -23,7 +23,7 @@ public class CharacterPoolRandomizer {
 
     public char drawSymbol() {
         if (availableSymbols.isEmpty()) {
-            throw new NoMoreSymbolsException();
+            throw new NoMoreSymbolsException(); // brak klasy wyjątku // brak testu na ten przypadek
         }
         return availableSymbols.remove(0);
 

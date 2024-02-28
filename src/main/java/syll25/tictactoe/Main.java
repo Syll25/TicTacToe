@@ -7,14 +7,14 @@ public class Main {
 
         CharacterPoolRandomizer symbolChoice = new CharacterPoolRandomizer('X', 'Y', 'Z', 'O', 'S');
 
-        Board board = new Board(symbolChoice);
-        board.initializeBoard();
+        Board board = new Board(symbolChoice); // do czego używamy symbolChoice w Board?
+        board.initializeBoard(); // niech konstruktor pełni rolę inicjalizatora
         System.out.println("That is your game board: ");
         board.printBoard();
 
         if (symbolChoice.availableSymbols.size() >= 2) {
-            char player1symbol = symbolChoice.drawSymbol();
-            char player2symbol = symbolChoice.drawSymbol();
+            char player1symbol = symbolChoice.drawSymbol(); // do klasy Player // wciąż brak obiektowości
+            char player2symbol = symbolChoice.drawSymbol(); // do klasy Player // wciąż brak obiektowości
 
             System.out.println("Player 1 that is your symbol: " + player1symbol);
             System.out.println("Player 2 that is your symbol: " + player2symbol);
@@ -49,6 +49,7 @@ public class Main {
                     break;
                 }
 
+                // powtórzenie kodu - a jeśli dojdzie nam 3., 4., 5. gracz?
                 System.out.println("Player 2, enter row and column (Your choice can be 0, 1 or 2). ");
                 do {
                     System.out.print("Row: ");
