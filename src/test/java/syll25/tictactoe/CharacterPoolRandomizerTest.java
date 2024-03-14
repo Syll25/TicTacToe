@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
+// TODO przenieść do pakietu syll25.tictactoe.logic
 public class CharacterPoolRandomizerTest {
 
     @Test
@@ -23,4 +24,6 @@ public class CharacterPoolRandomizerTest {
         assertTrue(drawSymbol == 'X' || drawSymbol == 'Y' || drawSymbol == 'Z' || drawSymbol == 'O' || drawSymbol == 'S');
         assertTrue(availableSymbols.contains(drawSymbol), "Symbol is not available");
     }
+
+    // TODO test na wyjątek
 }

@@ -10,6 +10,7 @@ import java.util.Collections;
  * - metoda losująca w przypadku braku dostępnych w puli znaków rzuca wyjątek
  * - testy jednostkowe
  */
+// TODO przenieść do pakietu syll25.tictactoe.logic
 public class CharacterPoolRandomizer {
     public ArrayList<Character> availableSymbols;
 

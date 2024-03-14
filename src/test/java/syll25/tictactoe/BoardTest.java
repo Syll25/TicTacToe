@@ -8,8 +8,9 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
+// TODO przenieść do pakietu syll25.tictactoe.logic
 public class BoardTest {
-    @Test  //sprawdza czy jest pelna w polowie gry
+    @Test  //sprawdza czy jest pelna w polowie gry // w trakcie, przed końcem, nie w połowie :P
     public void testIsFullPartiallyFilledBoard() {
         //given
         Board board = new Board(new CharacterPoolRandomizer('X', 'Y', 'Z', 'O', 'S'));

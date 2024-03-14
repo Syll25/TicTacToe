@@ -8,11 +8,11 @@ public class Main {
 
         CharacterPoolRandomizer symbolChoice = new CharacterPoolRandomizer('X', 'Y', 'Z', 'O', 'S');
 
-        Board board = new Board(symbolChoice);
+        Board board = new Board(symbolChoice); // Czy board używa symbolChoice?
         System.out.println("That is your game board: ");
         board.printBoard();
 
-        if (symbolChoice.availableSymbols.size() >= 2) {
+        if (symbolChoice.availableSymbols.size() >= 2) { // try/catch zamiast ifa? drawSymbol rzuca NoMoreSymbolsException
             Player player1 = new Player(symbolChoice.drawSymbol());
             Player player2 = new Player(symbolChoice.drawSymbol());
 
