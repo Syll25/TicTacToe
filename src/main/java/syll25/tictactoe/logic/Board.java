@@ -1,5 +1,8 @@
 package syll25.tictactoe.logic;
 
+import syll25.tictactoe.logic.exceptions.CellOccupiedException;
+import syll25.tictactoe.logic.exceptions.OutOfRangeException;
+
 import java.util.Arrays;
 import java.util.Optional;
 

@@ -1,4 +1,4 @@
-package syll25.tictactoe.logic;
+package syll25.tictactoe.logic.exceptions;
 
 // TODO podpakiet exceptions
 public class OutOfRangeException extends RuntimeException {

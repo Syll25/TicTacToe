@@ -1,6 +1,10 @@
 package syll25.tictactoe;
 
 import syll25.tictactoe.logic.*;
+import syll25.tictactoe.logic.exceptions.CellOccupiedException;
+import syll25.tictactoe.logic.exceptions.InvalidMoveException;
+import syll25.tictactoe.logic.exceptions.NoMoreSymbolsException;
+import syll25.tictactoe.logic.exceptions.OutOfRangeException;
 import syll25.tictactoe.ui.BoardRenderer;
 
 import java.util.Optional;
