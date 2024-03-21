@@ -8,8 +8,10 @@ import java.util.Scanner;
 
 public class Main {
 
-    private static int boardSize = 3; //podpowiada final, ale jesli chcemy miec tablice 4x4 w przyszlosci, powinna byc final?
+    private static int boardSize = 3; //podpowiada final, ale jesli chcemy miec tablice 4x4 w przyszlosci, powinna byc final? // final jest do stałych - możemy zrobić final, najwyżej tę stałą sobie zmienimy (przed kompilacją vs runtime)
 
+    // TODO dodać pytanie o imię gracza, jeśli imię się powtórzy, do powtórzonego dodać kolejny numer, np. "Jan" i "Jan (2)" - ma być uniwersalnie, więc nie doklejamy na sztywno "2" :P
+    // TODO niech gra dopuszcza dowolność w kolejności współrzędnych A1 = 1A
     public static void main(String[] args) {
 
         CharacterPoolRandomizer symbolChoice = new CharacterPoolRandomizer('X', 'Y', 'Z', 'O', 'S');
@@ -17,7 +19,7 @@ public class Main {
         Board board = new Board(boardSize);
         System.out.println("That is your game board: ");
 
-        BoardRenderer.renderBoard(board.getCells()); //mieszaja sie, ale w klasie Main chyba powinny prawda?
+        BoardRenderer.renderBoard(board.getCells()); //mieszaja sie, ale w klasie Main chyba powinny prawda? // ???
 
         try {
             Player player1 = new Player(symbolChoice.drawSymbol());
@@ -42,7 +44,7 @@ public class Main {
     public static boolean playerMove(Board board, Scanner scanner, Player player) {
         int row, col;  // zmienilam tu tez kolejnosc ale nie wiem czy ma to znaczenie
 
-        System.out.println("Player, enter row and column (e.g. A1, B2): ");
+        System.out.println("Player, enter row and column (e.g. A1, B2): "); // który player?
         do {
             String input = scanner.nextLine().toUpperCase();
             if (input.length() != 2) {
@@ -52,7 +54,7 @@ public class Main {
             char rowChar = input.charAt(0);
             char colChar = input.charAt(1);
 
-            if (!(rowChar >= 'A' && rowChar <= 'C') || !(colChar >= '1' && colChar <= '3')) {
+            if (!(rowChar >= 'A' && rowChar <= 'C') || !(colChar >= '1' && colChar <= '3')) { // magic numbers
                 System.out.println("Invalid input. Please enter row (A-C) and column (1-3)");
                 continue;
             }
@@ -65,7 +67,7 @@ public class Main {
                 System.out.println(ex.getMessage());
                 continue;
             } catch (OutOfRangeException ex) {
-                System.out.println("Invalid move: Out of range. "); //ten wyjatek zajmuje sie dokladnie tym samym co linijka 49, powinnam to zamienic?
+                System.out.println("Invalid move: Out of range. "); //ten wyjatek zajmuje sie dokladnie tym samym co linijka 49, powinnam to zamienic? // chyba nie 49... ale może if wyżej jest zatem zbędny? logika powinna być w logic.Board, walidacja wejścia (inputu) w warstwie widoku jest też ok, ale jako dodatkowa - opowiedzieć o walidacji frontend vs backend
                 continue;
             } catch (CellOccupiedException ex) {
                 System.out.println("Invalid move: Cell already occupied. ");

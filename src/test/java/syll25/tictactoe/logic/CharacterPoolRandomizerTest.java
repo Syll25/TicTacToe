@@ -24,4 +24,6 @@ public class CharacterPoolRandomizerTest {
         assertTrue(drawSymbol == 'X' || drawSymbol == 'Y' || drawSymbol == 'Z' || drawSymbol == 'O' || drawSymbol == 'S');
         assertTrue(availableSymbols.contains(drawSymbol), "Symbol is not available");
     }
+
+    // TODO test na wyjątek
 }

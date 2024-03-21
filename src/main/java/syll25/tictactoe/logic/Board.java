@@ -10,7 +10,7 @@ public class Board {
 
     public Board(int size) {
         this.size = size;
-        this.cells = new Player[size][size]; // czy tutaj tez utworzy sie za kazdym razem nowy uzytkownik?
+        this.cells = new Player[size][size]; // czy tutaj tez utworzy sie za kazdym razem nowy uzytkownik? // tworzymy tablicę, nie graczy; java domyślnie wypełnia ją nullami
         initializeBoard(cells);
     }
 
@@ -34,10 +34,10 @@ public class Board {
         }
         return true;
     }
-
+// brak linii odstepu między trzema metodami poniżej
     public void placeSymbol(Player player, int row, int col) {
-        checkValidMove(row, col);
-        checkCellOccupied(row, col);
+        checkValidMove(row, col); // -> assert
+        checkCellOccupied(row, col); // -> assert
         cells[row][col] = player;
     }
     private void checkValidMove(int row, int col) throws OutOfRangeException {
@@ -51,6 +51,8 @@ public class Board {
         }
     }
 
+    // TODO 1. pokryć testem
+    // TODO 2. podzielić na podmetody
     public Optional<Player> isWinner(char symbol) {
 
         for (int i = 0; i < size; i++) {

@@ -3,6 +3,8 @@ package syll25.tictactoe.ui;
 import syll25.tictactoe.logic.Player;
 
 public class BoardRenderer {
+
+    // TODO podzielić na submetody
     public static void renderBoard(Player[][] cells) {
 
         System.out.print("  ");
