@@ -22,7 +22,7 @@ public class Main {
         System.out.println("Player 2, enter your name");
         String player2Name = scanner.nextLine();
 
-        Board board = new Board(boardSize);
+        BoardInterface board = new Board1D(boardSize);
         System.out.println("That is your game board: ");
 
         BoardRenderer.renderBoard(board.getCells());
@@ -48,7 +48,7 @@ public class Main {
         }
     }
 
-    public static boolean playerMove(Board board, Scanner scanner, Player player) {
+    public static boolean playerMove(Board2D board, Scanner scanner, Player player) {
         int row, col;
         String input;
 
@@ -58,11 +58,6 @@ public class Main {
 
             row = coordinates.getRow();
             col = coordinates.getCol();
-
-            if (row == -1 || col == -1) { // hmm?
-                System.out.println("Invalid input. Please enter row and column in the format A1, B2, etc.");
-                continue;
-            }
 
             try {
                 board.placeSymbol(player, row, col);

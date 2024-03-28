@@ -6,12 +6,12 @@ import syll25.tictactoe.logic.exception.OutOfRangeException;
 import java.util.Arrays;
 import java.util.Optional;
 
-public class Board {
+public class Board2D implements BoardInterface {
 
     private final Player[][] cells;
     private final int size;
 
-    public Board(int size) {
+    public Board2D(int size) {
         this.size = size;
         this.cells = new Player[size][size];
         initializeBoard(cells);

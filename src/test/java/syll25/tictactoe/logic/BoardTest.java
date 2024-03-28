@@ -8,7 +8,7 @@ public class BoardTest {
     @Test  //sprawdza czy jest pelna w polowie gry
     public void testIsFullPartiallyFilledBoard() {
         //given
-        Board board = new Board(3);
+        Board2D board = new Board2D(3);
         Player player1 = new Player("Player 1", 'X');
         Player player2 = new Player("Player 2", 'O');
         //when
@@ -21,7 +21,7 @@ public class BoardTest {
     @Test
     public void testIsFullEmptyBoard() {
         //given
-        Board board = new Board(3);
+        Board2D board = new Board2D(3);
         //then
         assertFalse(board.isFull());
     }

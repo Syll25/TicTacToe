@@ -17,5 +17,10 @@ public class CoordinatesTest {
         assertEquals(1, coordinates.getRow());
     }
 
+    @Test // ok, ale dajmy jeszcze przypadki, gdy col i row są inne, oraz wyraźny test na przypadek A2 vs 2A
+    public void testValidCoordinates2() {
+        Coordinates coordinates = new Coordinates("A11");
+    }
+
     // TODO test na wyjątek
 }
