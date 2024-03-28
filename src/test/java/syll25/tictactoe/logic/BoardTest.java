@@ -26,4 +26,5 @@ public class BoardTest {
         assertFalse(board.isFull());
     }
 
+    // TODO test na weryfikację zwycięstwa
 }

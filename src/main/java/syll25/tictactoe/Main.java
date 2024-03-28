@@ -59,7 +59,7 @@ public class Main {
             row = coordinates.getRow();
             col = coordinates.getCol();
 
-            if (row == -1 || col == -1) {
+            if (row == -1 || col == -1) { // hmm?
                 System.out.println("Invalid input. Please enter row and column in the format A1, B2, etc.");
                 continue;
             }
