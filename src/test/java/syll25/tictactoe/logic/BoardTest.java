@@ -26,8 +26,8 @@ public class BoardTest {
     public void testIsFullEmptyBoard() {
         //given
         Board board = new Board(3);
-        Player player1 = new Player("Player1", 'X');
-        Player player2 = new Player("Player2", 'Y');
+        Player player1 = new Player("Player1", 'X'); // po co?
+        Player player2 = new Player("Player2", 'Y'); // po co?
         //when
 
         //then
@@ -41,15 +41,19 @@ public class BoardTest {
         Board board = new Board(size);
         Player[][] cells = board.getCells();
         Player player = new Player("Player", 'Z');
+        Player player2 = new Player("Player", 'Z');
 
         //when
         for (int i = 0; i < size; i++) {
             cells[0][i] = player;
         }
         //then
-        Optional<Player> winner = board.isWinner(player.getSymbol());
+        Optional<Player> winner = board.isWinner(player.getSymbol()); // dodać sprawdzenie przypadku negatywnego
         assertTrue(winner.isPresent());
         assertEquals(player, winner.get());
+
+        winner = board.isWinner(player2.getSymbol());
+        assertFalse(winner.isPresent());
     }
 
     @Test
@@ -65,7 +69,7 @@ public class BoardTest {
         }
         //then
         Optional<Player> winner = board.isWinner(player.getSymbol());
-        winner = board.isWinner(player.getSymbol());
+        winner = board.isWinner(player.getSymbol()); // dodać sprawdzenie przypadku negatywnego
         assertEquals(player, winner.get());
     }
 
@@ -82,7 +86,7 @@ public class BoardTest {
         }
         //then
         Optional<Player> winner = board.isWinner(player.getSymbol());
-        assertTrue(winner.isPresent());
+        assertTrue(winner.isPresent()); // dodać sprawdzenie przypadku negatywnego
         assertEquals(player, winner.get());
     }
 
@@ -98,7 +102,7 @@ public class BoardTest {
             board.placeSymbol(player, i, size - 1 - i);
         }
         //then
-        Optional<Player> winner = board.isWinner(player.getSymbol());
+        Optional<Player> winner = board.isWinner(player.getSymbol()); // dodać sprawdzenie przypadku negatywnego
         assertEquals(player, winner.get());
     }
 

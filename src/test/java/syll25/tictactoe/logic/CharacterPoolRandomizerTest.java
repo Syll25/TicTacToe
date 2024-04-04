@@ -35,6 +35,6 @@ public class CharacterPoolRandomizerTest {
             symbolChoice.drawSymbol();
         }
         //then
-        assertThrows(NoMoreSymbolsException.class, symbolChoice::drawSymbol);
+        assertThrows(NoMoreSymbolsException.class, symbolChoice::drawSymbol); // jak wiedza z lambd?
     }
 }

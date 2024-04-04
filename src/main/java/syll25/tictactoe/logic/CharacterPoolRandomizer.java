@@ -28,7 +28,6 @@ public class CharacterPoolRandomizer {
             throw new NoMoreSymbolsException();
         }
         return availableSymbols.removeFirst();
-
     }
 
 }
