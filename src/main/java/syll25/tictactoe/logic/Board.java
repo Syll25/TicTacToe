@@ -10,10 +10,12 @@ public class Board implements GameBoard{
 
     private final Player[][] cells;
     private final int size;
+    private final WinChecker winChecker;
 
     public Board(int size) {
         this.size = size;
         this.cells = new Player[size][size];
+        this.winChecker = new WinChecker(cells);
         initializeBoard(cells);
     }
 
@@ -57,8 +59,9 @@ public class Board implements GameBoard{
     }
 
     public Optional<Player> isWinner(char symbol) {
+        return winChecker.isWinner();
 
-        Optional<Player> rowWinner = checkRowWinner(symbol);
+        /*Optional<Player> rowWinner = checkRowWinner(symbol);
         if (rowWinner.isPresent()) {
             return rowWinner;
         }
@@ -72,60 +75,60 @@ public class Board implements GameBoard{
             return diagonalWinner;
         }
 
-        return Optional.empty();
+        return Optional.empty();*/
 
     }
-
-    private Optional<Player> checkRowWinner(char symbol) {
-        for (int i = 0; i < size; i++) {
-            boolean win = true;
-            for (int j = 0; j < size; j++) {
-                if (cells[i][j] == null || cells[i][j].getSymbol() != symbol) {
-                    win = false;
-                    break;
-                }
-            }
-            if (win) {
-                return Optional.of(cells[i][0]);
-            }
-        }
-        return Optional.empty();
-    }
-
-    private Optional<Player> checkColumnWinner(char symbol) {
-        for (int j = 0; j < size; j++) {
-            boolean win = true;
-            for (int i = 0; i < size; i++) {
-                if (cells[i][j] == null || cells[i][j].getSymbol() != symbol) {
-                    win = false;
-                    break;
-                }
-            }
-            if (win) {
-                return Optional.of(cells[0][j]);
-            }
-        }
-        return Optional.empty();
-    }
-
-    private Optional<Player> checkDiagonalWinner(char symbol) {
-        boolean diagonal1Win = true;
-        boolean diagonal2Win = true;
-
-        for (int i = 0; i < size; i++) {
-            if (cells[i][i] == null || cells[i][i].getSymbol() != symbol) {
-                diagonal1Win = false;
-            }
-            if (cells[i][size - 1 - i] == null || cells[i][size - 1 - i].getSymbol() != symbol) {
-                diagonal2Win = false;
-            }
-        }
-        if (diagonal1Win) {
-            return Optional.of(cells[0][0]);
-        }
-        if (diagonal2Win) {
-            return Optional.of(cells[0][size - 1]);
-        }
-        return Optional.empty();
-    }
+//
+//    private Optional<Player> checkRowWinner(char symbol) {
+//        for (int i = 0; i < size; i++) {
+//            boolean win = true;
+//            for (int j = 0; j < size; j++) {
+//                if (cells[i][j] == null || cells[i][j].getSymbol() != symbol) {
+//                    win = false;
+//                    break;
+//                }
+//            }
+//            if (win) {
+//                return Optional.of(cells[i][0]);
+//            }
+//        }
+//        return Optional.empty();
+//    }
+//
+//    private Optional<Player> checkColumnWinner(char symbol) {
+//        for (int j = 0; j < size; j++) {
+//            boolean win = true;
+//            for (int i = 0; i < size; i++) {
+//                if (cells[i][j] == null || cells[i][j].getSymbol() != symbol) {
+//                    win = false;
+//                    break;
+//                }
+//            }
+//            if (win) {
+//                return Optional.of(cells[0][j]);
+//            }
+//        }
+//        return Optional.empty();
+//    }
+//
+//    private Optional<Player> checkDiagonalWinner(char symbol) {
+//        boolean diagonal1Win = true;
+//        boolean diagonal2Win = true;
+//
+//        for (int i = 0; i < size; i++) {
+//            if (cells[i][i] == null || cells[i][i].getSymbol() != symbol) {
+//                diagonal1Win = false;
+//            }
+//            if (cells[i][size - 1 - i] == null || cells[i][size - 1 - i].getSymbol() != symbol) {
+//                diagonal2Win = false;
+//            }
+//        }
+//        if (diagonal1Win) {
+//            return Optional.of(cells[0][0]);
+//        }
+//        if (diagonal2Win) {
+//            return Optional.of(cells[0][size - 1]);
+//        }
+//        return Optional.empty();
+//    }
 }
