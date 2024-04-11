@@ -43,7 +43,7 @@ public class BoardTest {
         Player player = new Player("Player", 'Z');
 
         //when
-        try {
+        try { // po co?
             for (int i = 0; i < size; i++) {
                 board.placeSymbol(player, 0, i);
             }
@@ -63,7 +63,7 @@ public class BoardTest {
         GameBoard board = new Board(size);
         Player player = new Player("Player", 'X');
         //when
-        try {
+        try { // po co?
             for (int i = 0; i < size; i++) {
                 board.placeSymbol(player, i, 0);
             }
@@ -83,7 +83,7 @@ public class BoardTest {
         GameBoard board = new Board(size);
         Player player = new Player("Player", 'Y');
         //when
-        try {
+        try { // po co?
             for (int i = 0; i < size; i++) {
                 board.placeSymbol(player, i, i);
             }
@@ -103,7 +103,7 @@ public class BoardTest {
         GameBoard board = new Board(size);
         Player player = new Player("Player", 'X');
         //when
-        try {
+        try { // po co?
             for (int i = 0; i < size; i++) {
                 board.placeSymbol(player, i, size - 1 - i);
             }
@@ -152,7 +152,7 @@ public class BoardTest {
         Player player1 = new Player("Player1", 'Z');
         Player player2 = new Player("Player2", 'Y');
         //when
-        try {
+        try { // po co? tym bardziej że na dole jest assertThrows
             board.placeSymbol(player1, 0, 0);
         } catch (InvalidMoveException e) {
             fail("Unexpected exception: " + e.getMessage());
@@ -169,7 +169,7 @@ public class BoardTest {
         Player player1 = new Player("Player1", 'X');
         Player player2 = new Player("Player2", 'O');
         //when
-        try {
+        try { // po co?
             for (int i = 0; i < size; i++) {
                 for (int j = 0; j < size; j++) {
                     if ((i + j) % 2 == 0) {
@@ -194,7 +194,7 @@ public class BoardTest {
         Player player1 = new Player("Player1", 'X');
         Player player2 = new Player("Player2", 'O');
         //when
-        try {
+        try { // po co?
             board.placeSymbol(player1, 0, 0);
             board.placeSymbol(player1, 1, 2);
             board.placeSymbol(player2, 2, 0);

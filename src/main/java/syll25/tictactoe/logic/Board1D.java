@@ -7,6 +7,7 @@ import syll25.tictactoe.logic.exception.OutOfRangeException;
 import java.util.Arrays;
 import java.util.Optional;
 
+// TODO test jednostkowy - copy/paste BoardTest - nic nie trzeba zmieniać, testowane zachowanie jest takie samo
 public class Board1D implements GameBoard {
     private final Player[] cells;
     private final int size;

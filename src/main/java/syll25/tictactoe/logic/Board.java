@@ -47,7 +47,7 @@ public class Board implements GameBoard {
     }
 
     @Override
-    public void placeSymbol(Player player, int row, int col) throws InvalidMoveException {
+    public void placeSymbol(Player player, int row, int col) throws InvalidMoveException { // czy wiemy jak działa throws?
         checkValidMove(row, col);
         if (cells[row][col] != null) {
             throw new CellOccupiedException();
@@ -55,7 +55,7 @@ public class Board implements GameBoard {
         cells[row][col] = player;
     }
 
-    private void checkValidMove(int row, int col) throws OutOfRangeException {
+    private void checkValidMove(int row, int col) throws OutOfRangeException { // czy wiemy jak działa throws?
         if (row < 0 || row >= size || col < 0 || col >= size) {
             throw new OutOfRangeException();
         }
