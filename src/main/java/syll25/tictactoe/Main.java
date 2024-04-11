@@ -2,6 +2,9 @@ package syll25.tictactoe;
 
 import syll25.tictactoe.logic.*;
 import syll25.tictactoe.logic.exception.*;
+import syll25.tictactoe.logic.state.State;
+import syll25.tictactoe.logic.state.StateDTO;
+import syll25.tictactoe.logic.state.TxtState;
 import syll25.tictactoe.ui.BoardRenderer;
 
 import java.util.Optional;
@@ -12,11 +15,14 @@ public class Main {
     private static int boardSize = 3;
 
     public static void main(String[] args) {
+        State state = new TxtState();
+        StateDTO stateDTO = state.load("john.txt");
 
         CharacterPoolRandomizer symbolChoice = new CharacterPoolRandomizer('X', 'Y', 'Z', 'O', 'S');
 
         Scanner scanner = new Scanner(System.in);
 
+        // if (stateDTO != null) {
         System.out.println("Player 1, enter your name: ");
         String player1Name = scanner.nextLine();
         System.out.println("Player 2, enter your name");
@@ -24,11 +30,12 @@ public class Main {
 
         GameBoard board = new Board(boardSize);
         System.out.println("That is your game board: ");
+        // }
 
         BoardRenderer.renderBoard(board);
 
         try {
-            Player player1 = new Player(player1Name, symbolChoice.drawSymbol());
+            Player player1 = new Player(stateDTO.player1Name, symbolChoice.drawSymbol());
             Player player2 = new Player(player2Name, symbolChoice.drawSymbol());
 
             System.out.println("Player " + player1.getName() + " that is your symbol: " + player1.getSymbol());
