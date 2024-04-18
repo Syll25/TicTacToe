@@ -7,23 +7,17 @@ import java.util.Arrays;
 import java.util.Optional;
 
 public class Board implements GameBoard {
-    private final Player[] cells;
+    private final Player[][] cells;
     private final int size;
 
     public Board(int size) {
         this.size = size;
-        this.cells = new Player[size * size];
+        this.cells = new Player[size][size];
         initializeBoard();
     }
 
     public Player[][] getCells() {
-        Player[][] cellMatrix = new Player[size][size];
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                cellMatrix[i][j] = cells[i * size + j];
-            }
-        }
-        return cellMatrix;
+        return cells;
     }
 
     private void initializeBoard() {

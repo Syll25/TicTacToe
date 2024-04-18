@@ -2,6 +2,7 @@ package syll25.tictactoe;
 
 import syll25.tictactoe.logic.*;
 import syll25.tictactoe.logic.exception.*;
+import syll25.tictactoe.logic.state.TxtState;
 import syll25.tictactoe.ui.BoardRenderer;
 
 import java.util.Optional;
@@ -12,6 +13,9 @@ public class Main {
     private static int boardSize = 3;
 
     public static void main(String[] args) {
+
+        TxtState state = new TxtState();
+        //state.load(fileName);
 
         CharacterPoolRandomizer symbolChoice = new CharacterPoolRandomizer('X', 'Y', 'Z', 'O', 'S');
 
