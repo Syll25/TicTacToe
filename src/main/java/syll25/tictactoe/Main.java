@@ -19,11 +19,17 @@ public class Main {
     private static Player player1;
     private static Player player2;
 
+    /*
+    dla wybranego kierunku, tj. zakładamy, że obowiązkowo gracz podaje nazwę pliku, przyjmijmy, że:
+    1. jeśli plik istnieje, wczytujemy z niego grę
+    2. jeśli plik nie istnieje, to go tworzymy
+    3. nowa / kontynuowana gra będzie zapisywana do wskazanego pliku
+     */
     public static void main (String[] args) {
 
         if (args.length == 0) {
-            System.out.println("Usage: java Main <gameState.txt>");
-            return;
+            System.out.println("Usage: java Main <gameState.txt>"); // nie do końca tak, jeśli robimy jara - pewnie komunikat z przykładu
+            return; // teraz nie mozna rozpocząć zupełnie nowej gry
         }
 
         String filename = args[0];
@@ -31,13 +37,13 @@ public class Main {
 
         if(!Files.exists(path)) {
             System.out.println("File can not be founded");
-            return;
+            return; // teraz nie mozna rozpocząć zupełnie nowej gry
         }
 
         State state = new TxtState(filename);
         StateDTO stateDTO = state.load();
 
-        if (stateDTO != null) {
+        if (stateDTO != null) { // zawsze
             loadExistingGames(state, stateDTO);
         } else {
             System.out.println("No saved game state found. Starting a new game.");
@@ -45,7 +51,7 @@ public class Main {
         }
     }
 
-    public static void loadExistingGames(State state, StateDTO stateDTO) {
+    public static void loadExistingGames(State state, StateDTO stateDTO) { // niezbyt trafna nazwa
 
         String player1Name = stateDTO.player1Name;
         String player2Name = stateDTO.player2Name;

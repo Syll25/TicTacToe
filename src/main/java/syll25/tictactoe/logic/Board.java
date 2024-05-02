@@ -8,7 +8,7 @@ import java.util.Optional;
 public class Board implements GameBoard {
     private final Player[][] cells;
     private final int size;
-    private final Player[][] board;
+    private final Player[][] board; // duplikacja cells zadeklarowanego wyżej
 
     public Board(int size) {
         this.size = size;
@@ -43,7 +43,7 @@ public class Board implements GameBoard {
         }
     }
     @Override
-    public void initializeFromState(String[][] boardState, Player player1, Player player2) {
+    public void initializeFromState(String[][] boardState, Player player1, Player player2) { // dlaczego nie reużywamy placeSymbol?
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 String symbol = boardState[i][j];
@@ -52,7 +52,7 @@ public class Board implements GameBoard {
                 } else if (symbol.equals(player2.getSymbol())) {
                     board[i][j] = player2;
                 } else {
-                    board[i][j] = null;
+                    board[i][j] = null; // dlaczego nie cells?
                 }
             }
         }
