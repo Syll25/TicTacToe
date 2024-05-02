@@ -1,0 +1,5 @@
+# plik niepotrzebnie wrzucony do repozytorium
+
+
+John:X;Adam:O
+-XX--O-O-

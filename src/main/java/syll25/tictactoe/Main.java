@@ -15,137 +15,151 @@ import java.util.Scanner;
 
 public class Main {
 
-    private static int boardSize = 3;
-    private static Player player1;
-    private static Player player2;
+  private static int boardSize = 3;
+  private static Player player1;
+  private static Player player2;
 
-    /*
-    dla wybranego kierunku, tj. zakładamy, że obowiązkowo gracz podaje nazwę pliku, przyjmijmy, że:
-    1. jeśli plik istnieje, wczytujemy z niego grę
-    2. jeśli plik nie istnieje, to go tworzymy
-    3. nowa / kontynuowana gra będzie zapisywana do wskazanego pliku
-     */
-    public static void main (String[] args) {
+  /*
+  dla wybranego kierunku, tj. zakładamy, że obowiązkowo gracz podaje nazwę pliku, przyjmijmy, że:
+  1. jeśli plik istnieje, wczytujemy z niego grę
+  2. jeśli plik nie istnieje, to go tworzymy i pokażmy graczu informację, że rozpozynamy nową grę
+  3. nowa / kontynuowana gra będzie zapisywana do wskazanego pliku
+   */
+  public static void main(String[] args) {
 
-        if (args.length == 0) {
-            System.out.println("Usage: java Main <gameState.txt>"); // nie do końca tak, jeśli robimy jara - pewnie komunikat z przykładu
-            return; // teraz nie mozna rozpocząć zupełnie nowej gry
-        }
-
-        String filename = args[0];
-        Path path = Paths.get(filename);
-
-        if(!Files.exists(path)) {
-            System.out.println("File can not be founded");
-            return; // teraz nie mozna rozpocząć zupełnie nowej gry
-        }
-
-        State state = new TxtState(filename);
-        StateDTO stateDTO = state.load();
-
-        if (stateDTO != null) { // zawsze
-            loadExistingGames(state, stateDTO);
-        } else {
-            System.out.println("No saved game state found. Starting a new game.");
-            startNewGame(filename);
-        }
+    if (args.length == 0) {
+      System.out.println("Usage: java Main <gameState.txt>"); // nie do końca tak, jeśli robimy jara - pewnie komunikat z przykładu
+      return;
     }
 
-    public static void loadExistingGames(State state, StateDTO stateDTO) { // niezbyt trafna nazwa
+    String filename = args[0];
+    Path path = Paths.get(filename);
 
-        String player1Name = stateDTO.player1Name;
-        String player2Name = stateDTO.player2Name;
-        String player1Sign = stateDTO.player1Sign;
-        String player2Sign = stateDTO.player2Sign;
-
-        Player player1 = new Player(player1Name, player1Sign.charAt(0));
-        Player player2 = new Player(player2Name, player2Sign.charAt(0));
-
-        GameBoard board = new Board(stateDTO.size);
-        board.initializeFromState(stateDTO.board, player1, player2);
-
-        System.out.println("Loaded game board: ");
-        BoardRenderer.renderBoard(board);
-
-        playGame(state, board, player1, player2);
+    if (!Files.exists(path)) {
+      System.out.println("File can not be founded");
+      return; // teraz nie mozna rozpocząć zupełnie nowej gry (patrz punkt 2 i 3)
     }
 
-    public static void startNewGame(String filename) {
+    State state = new TxtState(filename);
+    try {
+      StateDTO stateDTO = state.load();
+      loadExistingGames(state, stateDTO);
+    } catch(RuntimeException e) {
+      System.out.println("No saved game state found. Starting a new game.");
+      startNewGame(filename);
+    }
 
-        CharacterPoolRandomizer symbolChoice = new CharacterPoolRandomizer('X', 'Y', 'Z', 'O', 'S');
+//    if (stateDTO != null) { // zawsze, bo load rzuca wyjątek a nie zwraca nulla
+//      loadExistingGames(state, stateDTO);
+//    } else {
+//      System.out.println("No saved game state found. Starting a new game.");
+//      startNewGame(filename);
+//    }
+  }
 
-        Scanner scanner = new Scanner(System.in);
+  public static void loadExistingGames(State state, StateDTO stateDTO) { // niezbyt trafna nazwa
 
-        System.out.println("Player 1, enter your name: ");
-        String player1Name = scanner.nextLine();
-        System.out.println("Player 2, enter your name");
-        String player2Name = scanner.nextLine();
+    String player1Name = stateDTO.player1Name;
+    String player2Name = stateDTO.player2Name;
+    String player1Sign = stateDTO.player1Sign;
+    String player2Sign = stateDTO.player2Sign;
 
-        GameBoard board = new Board(boardSize);
-        System.out.println("That is your game board: ");
+    Player player1 = new Player(player1Name, player1Sign.charAt(0));
+    Player player2 = new Player(player2Name, player2Sign.charAt(0));
 
-        BoardRenderer.renderBoard(board);
-
-        try {
-            player1 = new Player(player1Name, symbolChoice.drawSymbol());
-            player2 = new Player(player2Name, symbolChoice.drawSymbol());
-            System.out.println("Player " + player1.getName() + " that is your symbol: " + player1.getSymbol());
-            System.out.println("Player " + player2.getName() + " that is your symbol: " + player2.getSymbol());
-
-            playGame(new TxtState((filename)), board, player1, player2);
-
-        } catch (NoMoreSymbolsException ex) {
-            System.out.println("No more symbols available. ");
+    GameBoard board = new Board(stateDTO.size);
+    for ( int row = 0; row < stateDTO.board.length; row++) {
+      for (int col = 0; col < stateDTO.board[row].length; col++) {
+        if (player1.getSymbol() == stateDTO.board[row][col].charAt(0)) {
+          board.placeSymbol(player1, row, col);
         }
-    }
-
-    private static void playGame(State state, GameBoard board, Player player1, Player player2) {
-        boolean gameOver = false;
-
-        while (!gameOver) {
-            System.out.println(player1.getName() + " , enter row and column (e.g. A1, B2): ");
-            gameOver = playerMove(state, board, new Scanner(System.in), player1);
-            if (gameOver) break;
-            System.out.println(player2.getName() + " , enter row and column (e.g. A1, B2): ");
-            gameOver = playerMove(state, board, new Scanner(System.in), player2);
+        if (player2.getSymbol() == stateDTO.board[row][col].charAt(0)) {
+          board.placeSymbol(player1, row, col);
         }
-
+      }
     }
-}
+    //board.initializeFromState(stateDTO.board, player1, player2); // reużywamy placeSymbol
 
+    System.out.println("Loaded game board: ");
+    BoardRenderer.renderBoard(board);
 
-public static boolean playerMove(State state, GameBoard board, Scanner scanner, Player player) {
+    playGame(state, board, player1, player2);
+  }
+
+  public static void startNewGame(String filename) {
+
+    CharacterPoolRandomizer symbolChoice = new CharacterPoolRandomizer('X', 'Y', 'Z', 'O', 'S');
+
+    Scanner scanner = new Scanner(System.in);
+
+    System.out.println("Player 1, enter your name: ");
+    String player1Name = scanner.nextLine();
+    System.out.println("Player 2, enter your name");
+    String player2Name = scanner.nextLine();
+
+    GameBoard board = new Board(boardSize);
+    System.out.println("That is your game board: ");
+
+    BoardRenderer.renderBoard(board);
+
+    try {
+      player1 = new Player(player1Name, symbolChoice.drawSymbol());
+      player2 = new Player(player2Name, symbolChoice.drawSymbol());
+      System.out.println("Player " + player1.getName() + " that is your symbol: " + player1.getSymbol());
+      System.out.println("Player " + player2.getName() + " that is your symbol: " + player2.getSymbol());
+
+      playGame(new TxtState((filename)), board, player1, player2);
+
+    } catch (NoMoreSymbolsException ex) {
+      System.out.println("No more symbols available. ");
+    }
+  }
+
+  private static void playGame(State state, GameBoard board, Player player1, Player player2) {
+    boolean gameOver = false;
+
+    while (!gameOver) {
+      System.out.println(player1.getName() + " , enter row and column (e.g. A1, B2): ");
+      gameOver = playerMove(state, board, new Scanner(System.in), player1);
+      if (gameOver) break;
+      System.out.println(player2.getName() + " , enter row and column (e.g. A1, B2): ");
+      gameOver = playerMove(state, board, new Scanner(System.in), player2);
+    }
+
+  }
+
+  public static boolean playerMove(State state, GameBoard board, Scanner scanner, Player player) {
     int row, col;
     String input;
 
     do {
-        input = scanner.nextLine().toUpperCase();
-        Coordinates coordinates = new Coordinates(input);
+      input = scanner.nextLine().toUpperCase();
+      Coordinates coordinates = new Coordinates(input);
 
-        row = coordinates.getRow();
-        col = coordinates.getCol();
+      row = coordinates.getRow();
+      col = coordinates.getCol();
 
-        if (row == -1 || col == -1) {
-            System.out.println("Invalid input. Please enter row and column in the format A1, B2, etc.");
-            continue;
-        }
+      if (row == -1 || col == -1) {
+        System.out.println("Invalid input. Please enter row and column in the format A1, B2, etc.");
+        continue;
+      }
 
-        try {
-            board.placeSymbol(player, row, col);
-        } catch (InvalidMoveException ex) {
-            System.out.println(ex.getMessage());
-            continue;
-        } catch (OutOfRangeException ex) {
-            System.out.println("Invalid move: Out of range. ");
-            continue;
-        } catch (CellOccupiedException ex) {
-            System.out.println("Invalid move: Cell already occupied. ");
-            continue;
-        } catch (InvalidCoordinatesException ex) {
-            System.out.println("Invalid input. Please enter row and column in the format A1, B2 etc. ");
-            continue;
-        }
-        break;
+      try {
+        board.placeSymbol(player, row, col);
+      } catch (InvalidMoveException ex) {
+        System.out.println(ex.getMessage());
+        continue;
+      } catch (OutOfRangeException ex) {
+        System.out.println("Invalid move: Out of range. ");
+        continue;
+      } catch (CellOccupiedException ex) {
+        System.out.println("Invalid move: Cell already occupied. ");
+        continue;
+      } catch (InvalidCoordinatesException ex) {
+        System.out.println("Invalid input. Please enter row and column in the format A1, B2 etc. ");
+        continue;
+      }
+      break;
     } while (true);
 
     BoardRenderer.renderBoard(board);
@@ -154,15 +168,13 @@ public static boolean playerMove(State state, GameBoard board, Scanner scanner, 
 
     Optional<Player> winner = board.isWinner(player.getSymbol());
     if (winner.isPresent()) {
-        System.out.println(player.getName() + player.getSymbol() + " wins!");
-        return true;
+      System.out.println(player.getName() + player.getSymbol() + " wins!");
+      return true;
     } else if (board.isFull()) {
-        System.out.println("We have a draw!");
-        return true;
+      System.out.println("We have a draw!");
+      return true;
     }
     return false;
+  }
+
 }
-
-
-
-

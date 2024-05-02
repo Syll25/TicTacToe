@@ -8,7 +8,7 @@ import java.util.Optional;
 public class Board implements GameBoard {
     private final Player[][] cells;
     private final int size;
-    private final Player[][] board; // duplikacja cells zadeklarowanego wyżej
+//    private final Player[][] board; // duplikacja cells zadeklarowanego wyżej
 
     public Board(int size) {
         this.size = size;
