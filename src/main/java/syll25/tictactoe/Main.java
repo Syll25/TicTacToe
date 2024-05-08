@@ -26,18 +26,11 @@ public class Main {
         Path path = Paths.get(filename);
 
         if (!Files.exists(path)) {
-            System.out.println("File can not be founded");
-            return;
-        }
-
-        State state = new TxtState(filename);
-        StateDTO stateDTO = state.load();
-
-        if (stateDTO != null) {
-            loadExistingGames(state, stateDTO);
-        } else {
-            System.out.println("No saved game state found. Starting a new game.");
             startNewGame(filename);
+        } else {
+            State state = new TxtState(filename);
+            StateDTO stateDTO = state.load();
+            loadExistingGames(state, stateDTO);
         }
     }
 
