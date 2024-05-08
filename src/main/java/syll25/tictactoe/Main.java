@@ -19,7 +19,7 @@ public class Main {
     private static Player player1;
     private static Player player2;
 
-    public static void main (String[] args) {
+    public static void main(String[] args) {
 
         if (args.length == 0) {
             System.out.println("Usage: java Main <gameState.txt>");
@@ -29,7 +29,7 @@ public class Main {
         String filename = args[0];
         Path path = Paths.get(filename);
 
-        if(!Files.exists(path)) {
+        if (!Files.exists(path)) {
             System.out.println("File can not be founded");
             return;
         }
@@ -105,58 +105,57 @@ public class Main {
         }
 
     }
-}
 
 
-public static boolean playerMove(State state, GameBoard board, Scanner scanner, Player player) {
-    int row, col;
-    String input;
+    public static boolean playerMove(State state, GameBoard board, Scanner scanner, Player player) {
+        int row, col;
+        String input;
 
-    do {
-        input = scanner.nextLine().toUpperCase();
-        Coordinates coordinates = new Coordinates(input);
+        do {
+            input = scanner.nextLine().toUpperCase();
+            Coordinates coordinates = new Coordinates(input);
 
-        row = coordinates.getRow();
-        col = coordinates.getCol();
+            row = coordinates.getRow();
+            col = coordinates.getCol();
 
-        if (row == -1 || col == -1) {
-            System.out.println("Invalid input. Please enter row and column in the format A1, B2, etc.");
-            continue;
+            if (row == -1 || col == -1) {
+                System.out.println("Invalid input. Please enter row and column in the format A1, B2, etc.");
+                continue;
+            }
+
+            try {
+                board.placeSymbol(player, row, col);
+            } catch (InvalidMoveException ex) {
+                System.out.println(ex.getMessage());
+                continue;
+            } catch (OutOfRangeException ex) {
+                System.out.println("Invalid move: Out of range. ");
+                continue;
+            } catch (CellOccupiedException ex) {
+                System.out.println("Invalid move: Cell already occupied. ");
+                continue;
+            } catch (InvalidCoordinatesException ex) {
+                System.out.println("Invalid input. Please enter row and column in the format A1, B2 etc. ");
+                continue;
+            }
+            break;
+        } while (true);
+
+        BoardRenderer.renderBoard(board);
+
+        state.save(board, Main.player1, Main.player2); // odnoszenie sie do zmiennych statycznych klasy main?
+
+        Optional<Player> winner = board.isWinner(player.getSymbol());
+        if (winner.isPresent()) {
+            System.out.println(player.getName() + player.getSymbol() + " wins!");
+            return true;
+        } else if (board.isFull()) {
+            System.out.println("We have a draw!");
+            return true;
         }
-
-        try {
-            board.placeSymbol(player, row, col);
-        } catch (InvalidMoveException ex) {
-            System.out.println(ex.getMessage());
-            continue;
-        } catch (OutOfRangeException ex) {
-            System.out.println("Invalid move: Out of range. ");
-            continue;
-        } catch (CellOccupiedException ex) {
-            System.out.println("Invalid move: Cell already occupied. ");
-            continue;
-        } catch (InvalidCoordinatesException ex) {
-            System.out.println("Invalid input. Please enter row and column in the format A1, B2 etc. ");
-            continue;
-        }
-        break;
-    } while (true);
-
-    BoardRenderer.renderBoard(board);
-
-    state.save(board, Main.player1, Main.player2); // odnoszenie sie do zmiennych statycznych klasy main?
-
-    Optional<Player> winner = board.isWinner(player.getSymbol());
-    if (winner.isPresent()) {
-        System.out.println(player.getName() + player.getSymbol() + " wins!");
-        return true;
-    } else if (board.isFull()) {
-        System.out.println("We have a draw!");
-        return true;
+        return false;
     }
-    return false;
+
 }
-
-
 
 
