@@ -10,6 +10,7 @@ import syll25.tictactoe.ui.BoardRenderer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -20,13 +21,13 @@ public class Main {
     private static Player player2;
 
     public static void main(String[] args) {
+        String filename = getGameStateFileName(args);
 
         if (args.length == 0) {
             System.out.println("Usage: java Main <gameState.txt>");
             return;
         }
 
-        String filename = args[0];
         Path path = Paths.get(filename);
 
         if (!Files.exists(path)) {
@@ -42,6 +43,15 @@ public class Main {
         } else {
             System.out.println("No saved game state found. Starting a new game.");
             startNewGame(filename);
+        }
+    }
+
+    private static String getGameStateFileName(String[] args) {
+        if (args.length == 1) {
+            return args[0];
+        } else {
+            LocalDateTime.now();
+            // TODO skonwertuj na format: rok-miesiac-dzien_godzina-minuta-sekunda-milisekunda i zwróć
         }
     }
 
