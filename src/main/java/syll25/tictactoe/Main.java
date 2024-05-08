@@ -23,11 +23,6 @@ public class Main {
     public static void main(String[] args) {
         String filename = getGameStateFileName(args);
 
-        if (args.length == 0) {
-            System.out.println("Usage: java Main <gameState.txt>");
-            return;
-        }
-
         Path path = Paths.get(filename);
 
         if (!Files.exists(path)) {
