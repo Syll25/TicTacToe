@@ -1,0 +1,15 @@
+{
+  "player1": {
+    "name": "john",
+    "sign": "x"
+  },
+  "player2": {
+    "name": "john",
+    "sign": "x"
+  },
+  "board": [
+    ["x", "o", "x"],
+    ["o", "x", "o"],
+    ["x", "o", "x"]
+  ]
+}

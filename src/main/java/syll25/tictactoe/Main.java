@@ -23,6 +23,17 @@ public class Main {
     ;
 
     public static void main(String[] args) {
+        // --load-game sylvia.txt
+        // --load-game gameState2.txt
+        // --load-game roger.json
+        // --load-game roger.xml
+        // --list-games
+
+
+        // TODO stworzyć fabrykę dla klasy *State
+        // fabryka = wzorzec projektowy
+
+
         ensureSaveDirectory();
 
         String filename = saveDirectory + "gameState.txt";

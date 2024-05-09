@@ -1,0 +1,5 @@
+<state>
+    <player1 name="John" sign="x"></player1>
+    <player2 name="John" sign="x"></player2>
+    <board>-XX--O-O-</board>
+</state>
