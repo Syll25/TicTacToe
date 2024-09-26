@@ -1,3 +1,5 @@
+// dlaczego to jest wykomentowane?
+
 //package syll25.tictactoe;
 //
 //import syll25.tictactoe.logic.*;

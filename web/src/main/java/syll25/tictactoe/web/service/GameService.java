@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -92,7 +93,7 @@ public class GameService {
         playGame(state, board, player1, player2);
     }
 
-    public void startNewGame(String filename) {
+    public Board startNewGame(String filename) {
 
         CharacterPoolRandomizer symbolChoice = new CharacterPoolRandomizer('X', 'Y', 'Z', 'O', 'S');
 
@@ -103,10 +104,12 @@ public class GameService {
         System.out.println("Player 2, enter your name");
         String player2Name = scanner.nextLine();
 
-        GameBoard board = new Board(boardSize);
+        Board board = new Board(boardSize);
         System.out.println("That is your game board: ");
 
-        BoardRenderer.renderBoard(board);
+//        BoardRenderer.renderBoard(board);
+
+        return board;
 
         try {
             player1 = new Player(player1Name, symbolChoice.drawSymbol());
@@ -114,27 +117,34 @@ public class GameService {
             System.out.println("Player " + player1.getName() + " that is your symbol: " + player1.getSymbol());
             System.out.println("Player " + player2.getName() + " that is your symbol: " + player2.getSymbol());
 
-            playGame(StateFactory.getState(filename), board, player1, player2);
+            //playGame(StateFactory.getState(filename), board, player1, player2);
 
         } catch (NoMoreSymbolsException ex) {
             System.out.println("No more symbols available. ");
         }
     }
-    public void playGame(State state, GameBoard board, Player player1, Player player2) {
-        boolean gameOver = false;
+//    public void playGame(State state, GameBoard board, Player player1, Player player2) {
+//        boolean gameOver = false;
+//
+//        while (!gameOver) {
+//            System.out.println(player1.getName() + " , enter row and column (e.g. A1, B2): ");
+//            gameOver = playerMove(state, board, new Scanner(System.in), player1);
+//            if (gameOver) break;
+//            System.out.println(player2.getName() + " , enter row and column (e.g. A1, B2): ");
+//            gameOver = playerMove(state, board, new Scanner(System.in), player2);
+//        }
+//
+//    }
 
-        while (!gameOver) {
-            System.out.println(player1.getName() + " , enter row and column (e.g. A1, B2): ");
-            gameOver = playerMove(state, board, new Scanner(System.in), player1);
-            if (gameOver) break;
-            System.out.println(player2.getName() + " , enter row and column (e.g. A1, B2): ");
-            gameOver = playerMove(state, board, new Scanner(System.in), player2);
-        }
+    public boolean playerMove(int x, int y) {
+        // TODO wyciągnąć z bazy aktualny stan gry
+        Board board = ....
+        // TODO wyciągnąc z bazy aktualnego gracza
 
-    }
 
-    public boolean playerMove(State state, GameBoard board, Scanner scanner, Player player) {
-        int row, col;
+        board.placeSymbol(player, x, y);
+
+        /*int row, col;
         String input;
 
         do {
@@ -179,7 +189,7 @@ public class GameService {
             System.out.println("We have a draw!");
             return true;
         }
-        return false;
+        return false;*/
     }
 
 

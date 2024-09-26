@@ -57,6 +57,7 @@
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
+<!--        po co nam cli w web?-->
         <dependency>
             <groupId>syll25.tictactoe</groupId>
             <artifactId>cli</artifactId>

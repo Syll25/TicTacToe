@@ -1,0 +1,14 @@
+gracz wysyla request /start ->
+
+1. GameController#startNewGame - tworzy nową grę, zapisuję ją do bazy danych i daje htmla z pustą planszą
+
+gracz wykonuje ruch - /playerMove ->
+
+2. GameControllerplayerMove
+
+odzyskujemy z bazy danych stan gry
+wykonujamy ruch (zmiana gracza w kolejce)
+sprawdzanie zwyciestwa
+zwracamy htmla z planszą z zaznaczonym ruchem gracza
+
+idź do 2. - następny gracz wysyła request /playerMove
