@@ -61,10 +61,12 @@ public class GameService {
         Player player2 = new Player(game.getPlayer2Name(), game.getPlayer2Symbol());
         Player currentPlayer = game.getCurrentPlayer().equals(player1.getName()) ? player1 : player2;
 
+        // czy tego nam nie sprawdza już Board?
         if (row < 0 || row >= board.getSize() || col < 0 || col >= board.getSize()) {
             throw new IllegalArgumentException("Invalid move: row or column out of board size");
         }
 
+        // czy tego nam nie sprawdza już Board?
         if (!board.isCellEmpty(row, col)) {
             throw new IllegalArgumentException("Cell is already occupied");
         }
