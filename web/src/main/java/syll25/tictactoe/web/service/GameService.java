@@ -53,9 +53,11 @@ public class GameService {
     }
 
     public StateDTO makeMove(Long gameId, int row, int col) {
+        // tu wczytujemy pierwszy raz z bazy
         Game game = gameRepository.findById(gameId)
                 .orElseThrow(() -> new IllegalArgumentException("Game not found"));
 
+        // tu w środku ponownie
         Board board = loadBoardFromString(gameId);
         Player player1 = new Player(game.getPlayer1Name(), game.getPlayer1Symbol());
         Player player2 = new Player(game.getPlayer2Name(), game.getPlayer2Symbol());
@@ -141,6 +143,7 @@ public class GameService {
         Character player2Symbol = game.getPlayer2Symbol();
         String boardState = game.getBoardState();
 
+        // co tu się dzieje? jaki jest cel tego splita? zobacz, co jest w kolumnie boardstate (oraz, czy jest w niej wszystko, co być powinno)
         Board board = new Board(game.getBoardState().split("\n").length);
 
         Player player1 = new Player(game.getPlayer1Name(), game.getPlayer1Symbol());
