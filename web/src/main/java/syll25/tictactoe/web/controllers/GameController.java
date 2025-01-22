@@ -49,9 +49,13 @@ public class GameController {
             @RequestParam("col") int col,
             Model model) {
 
-        StateDTO stateDTO = gameService.makeMove(gameId, row, col);
+        try {
+            StateDTO stateDTO = gameService.makeMove(gameId, row, col);
 
-        model.addAttribute("stateDTO", stateDTO);
+            model.addAttribute("stateDTO", stateDTO);
+        } catch (IsWinnerFound e) {
+            return "redirect:/game/gameResult/" + e.getPlayerName(); // TODO dodać endpoint
+        }
 
         return gameViewService.redirectToResult(stateDTO);
     }

@@ -9,6 +9,7 @@ import syll25.tictactoe.logic.CharacterPoolRandomizer;
 import syll25.tictactoe.logic.Player;
 import syll25.tictactoe.logic.exception.CellOccupiedException;
 import syll25.tictactoe.logic.state.StateDTO;
+import syll25.tictactoe.web.dto.GameDto;
 import syll25.tictactoe.web.model.Game;
 import syll25.tictactoe.web.repository.GameRepository;
 
@@ -59,7 +60,7 @@ public class GameService {
         return game.getId();
     }
 
-    public StateDTO makeMove(Long gameId, int row, int col) {
+    public GameDto makeMove(Long gameId, int row, int col) {
         Game game = gameRepository.findById(gameId)
                 .orElseThrow(() -> new IllegalArgumentException("Game not found"));
 
@@ -83,8 +84,12 @@ public class GameService {
         try {
             board.placeSymbol(currentPlayer, row, col);
 
+            boolean isWinner = false;
+
             if (board.isWinner(currentPlayer.getSymbol()).isPresent()) {
-                stateDTO.setGameOver(true);
+                //throw new WInnwerFound(currentPlayer.getSymbol()); alternatywnie do GameDto
+                //stateDTO.setGameOver(true);
+                isWinner = true;
             } else if (board.isFull()) {
                 stateDTO.setGameOver(true);
             } else {
@@ -106,10 +111,10 @@ public class GameService {
             game.setBoardState(stateToJson(stateDTO));
             gameRepository.save(game);
 
-            return stateDTO;
+            return new GameDto(..., isWinner, currentPlayer.getSymbol());
 
         } catch (CellOccupiedException e) {
-            throw new CellOccupiedException();
+            throw new CellOccupiedException(); // -> powinno dać jakiś komunikat o tym że pole jest zajęte -> 400 (zamiast 500)
         }
     }
 

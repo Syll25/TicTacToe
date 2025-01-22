@@ -9,10 +9,10 @@ public class StateDTO {
     public String[][] board;
     public int size;
     public String currentPlayer;
-    public boolean gameOver;
-    public Long gameId;
-    private boolean winnerFound;
-    private boolean draw;
+    //public boolean gameOver;
+    //public Long gameId;
+    //private boolean winnerFound;
+    //private boolean draw;
 
     public StateDTO(Long gameId, Player player1, Player player2, String[][] board, int size, String currentPlayer, boolean gameOver) {
         this.player1 = new PlayerDTO(player1.getName(), String.valueOf(player1.getSymbol()));
@@ -64,10 +64,10 @@ public class StateDTO {
     public boolean isGameOver() {
         return gameOver;
     }
-
+/*
     public void setGameOver(boolean gameOver) {
         this.gameOver = gameOver;
-    }
+    }*/
 
     public boolean isWinnerFound() {
         return winnerFound;
